@@ -1,6 +1,5 @@
 package com.melia.coins;
 
-
 import com.melia.coins.exceptions.VendingException;
 import com.melia.coins.model.Coin;
 

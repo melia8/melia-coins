@@ -15,37 +15,38 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         VendingMachine vendingMachine = new VendingMachine();
 
-        while (!quit){
+        while (!quit) {
             System.out.println("Input Value , ( or 0 to quit)");
             int v = scanner.nextInt();
-            if (v == 0){
-                quit=true;
+            if (v == 0) {
+                quit = true;
                 continue;
             }
             System.out.println("Input u for unlimited coins or l for limited ");
             String s = scanner.next();
-            if (s.equals("l")){
-                try {
+
+            try {
+
+                if (s.equals("l")) {
                     coins = vendingMachine.getChangeFor(v);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (VendingException e) {
-                    e.printStackTrace();
-                }
-            } else if (s.equals("u")) {
-                try {
+                } else if (s.equals("u")) {
                     coins = vendingMachine.getOptimalChangeFor(v);
-                } catch (VendingException e) {
-                    e.printStackTrace();
+                } else {
+                    System.out.println("Not recognised input");
+                    continue;
                 }
 
-            } else {
-                System.out.println("Not recognised input");
+            } catch (IOException e) {
+                e.printStackTrace();
+                continue;
+            } catch (VendingException e) {
+                System.out.println("Not enough coins for your change!");
                 continue;
             }
+
             coins.stream()
                     .map(c -> c.getDenomination())
-                    .forEach(c ->System.out.print(c + " "));
+                    .forEach(c -> System.out.print(c + " "));
             System.out.println();
 
         }

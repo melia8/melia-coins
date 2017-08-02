@@ -19,7 +19,8 @@ public class Main {
             System.out.println("Input Value , ( or 0 to quit)");
             int v = scanner.nextInt();
             if (v == 0){
-                break;
+                quit=true;
+                continue;
             }
             System.out.println("Input u for unlimited coins or l for limited ");
             String s = scanner.next();
@@ -31,13 +32,16 @@ public class Main {
                 } catch (VendingException e) {
                     e.printStackTrace();
                 }
-            } else {
+            } else if (s.equals("u")) {
                 try {
                     coins = vendingMachine.getOptimalChangeFor(v);
                 } catch (VendingException e) {
                     e.printStackTrace();
                 }
 
+            } else {
+                System.out.println("Not recognised input");
+                continue;
             }
             coins.stream()
                     .map(c -> c.getDenomination())
